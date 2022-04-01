@@ -24,8 +24,8 @@ public class StartupData implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        adminAccount();
-        userAccount();
+        /*adminAccount();*/
+     /*   userAccount();*/
 
     }
 
@@ -34,7 +34,6 @@ public class StartupData implements CommandLineRunner {
 
         user.setUsername("user");
         user.setPassword("user");
-        user.setPasswordConfirm("user");
         user.setGender("Female");
         user.setEmail("user@example.com");
 
@@ -46,7 +45,6 @@ public class StartupData implements CommandLineRunner {
 
         admin.setUsername("admin");
         admin.setPassword("admin");
-        admin.setPasswordConfirm("admin");
         admin.setGender("Male");
         admin.setEmail("admin@example.com");
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="supheader :: head">
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="container-fluid" id="container">
+    <div th:replace="navigation :: navigation"></div>
+
+    <div class="main">
+        <div th:replace="supheader :: topbar"></div>
+        <div>
+            &nbsp; &nbsp; &nbsp;<a th:href="@{/}" style="text-decoration: none;">My Home &nbsp;/</a>
+            <a th:href="@{products}" style="text-decoration: none;">Liste des produits</a>
+        </div>
+
+        <div class="detailsProduit">
+            <div class="recentOrders">
+                <form class="input-group mb-3" th:action="@{myproducts}" method="get">
+                    <a th:href="@{produitAdd}" class="btn btn-primary">Ajouté un produit</a> <br>
+                    <input type="search" class="form-control" name="keyword" th:value="${keyword}"
+                           placeholder="Rechercher......" aria-label="Recipient's username">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <div>
+
+                    <!-- PAGINATION PART -->
+                    <div>
+                        <nav aria-label="...">
+                            <ul class="pagination pagination-md ">
+                                <li style=" font-weight: 500; font-size: 105%; border: 5px solid white; "
+                                    th:each="pa,status:${pages}"
+                                    th:class="${actuPage  ==  status.index}?'page-item active ':'' ">
+							      	<span class="page-link">
+								      	<a style="text-decoration: none; color: black;"
+                                           th:href="@{adminisproducts(page=${status.index},size=${size},keyword=${keyword})}"
+                                           th:text="${status.index}"> </a>
+							      	</span>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- PAGINATION PART End -->
+                </div>
+                <table class="text-center">
+                    <thead class="bg-light">
+                    <tr>
+                        <td>Image</td>
+                        <td>Quantité</td>
+                        <td>Designation</td>
+                        <td>Description</td>
+                        <td>Prix</td>
+                        <td>Action</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product: ${products}">
+                        <td th:inline="text">
+                            <div class="user">
+                                <img th:src="${'/images/'+product.name}">
+                            </div>
+                        </td>
+                        <td th:text=${product.qty}></td>
+                        <td th:text=${product.design}></td>
+                        <td th:text=${product.desc}></td>
+                        <td th:text=${product.prix}></td>
+                        <td>
+
+                            <!-- th:href="@{/editProduit(id=${p.id})}" -->
+                            <!-- th:href="@{/editproduitUpdate/{id}(id=${p.id})}" -->
+                            <!-- th:href="@{/edit/{id}(id=${user.id})}" -->
+                            <a th:href="@{Edition(id=${product.id})}"
+                               class="btn btn-warning btn-sm px-3"><i class="fas fa-pencil-alt text-dark me-2"
+                                                                      aria-hidden="true"></i>Edit</a>
+                            <a onclick="return confirm('Etes vous Sûr?')"
+                               th:href="@{suppression(id=${product.id}, keyword=${keyword}, page=${curentpage}, size=${size})}"
+                               class="btn btn-danger btn-sm px-3"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/3e9d5b9e3a.js"></script>
+</body>
+</html>

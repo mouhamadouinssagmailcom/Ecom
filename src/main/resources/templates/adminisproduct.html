@@ -8,68 +8,81 @@
 
 <div th:replace="fragments/header :: header"></div>
 <div class="container mt-20">
-    <div class="card">
-        <div class="card-header">Liste des patients</div>
-        <div class="card-body">
-            <form method="get" th:action="@{adminisproducts}">
-                <div class="form-group">
-                    <label>Name:</label>
-                    <input type="text" name="keyword"
-                           th:value="${keyword}"/>
-                    <button class="btn btn-success">Search</button>
-                </div>
-
-
-            </form>
-
-
-            <table class="table table-striped">
-                <tr>
-                    <td>Image</td>
-                    <td>Quantité</td>
-                    <td>Designation</td>
-                    <td>Description</td>
-                    <td>Prix</td>
-                    <td>Action</td>
-                </tr>
-                <tr th:each="product: ${products}">
-                    <td th:inline="text">
-                        <div class="user">
-                            <img th:src="${'/images/'+product.name}">
-                        </div>
-                    </td>
-
-                    <td th:text="${product.qty}"></td>
-                    <td th:text="${product.design}"></td>
-                    <td th:text="${product.desc}"></td>
-                    <td th:text="${product.prix}"></td>
-                    <td>
-                        <a onclick="return confirm ('Etes vous Sûr?')"
-
-                           class="btn btn-danger"
-                           th:href="@{suppression(id=${product.id},keyword=${keyword},page=${currentPage},size=${size})}">Delete</a>
-                    </td>
-                    </td>
-                    <td>
-                        <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary"><a
-                                th:href="@{Edition(id=${product.id})}">Editer</a></button>
-                    </td>
-                </tr>
-            </table>
-            <ul class="nav nav-pills">
-                <li th:each="page, status:${pages}"><a
-                        th:class="${status.index==currentPage? 'btn btn-primary':'btn'
-						}"
-                        th:href="@{adminisproducts(page=${status.index},keyword=${keyword},size=${size})}"
-                        th:text="${status.index}"></a></li>
-            </ul>
+    <form method="get" th:action="@{adminisproducts}">
+        <div class="align-content-center">
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="keyword"
+                   th:value="${keyword}"/>
+            <button class="btn btn-success">Search</button>
         </div>
-    </div>
+        </div>
+    </form>
+</div>
+
+
+    <a class="btn btn-lg btn-outline-info btn-block"
+       th:href="@{produitAdd}">Enregistrer un produit</a>
+
+    <table class="table table-striped">
+        <tr>
+            <td>Image</td>
+            <td>Quantité</td>
+            <td>Designation</td>
+            <td>Description</td>
+            <td>Category</td>
+            <td>Prix</td>
+            <td>Marque</td>
+        </tr>
+        <tr th:each="product: ${products}">
+            <td th:inline="text">
+                <div class="user">
+                    <img th:src="${'/images/'+product.name}" width="50">
+                </div>
+            </td>
+
+            <td th:text="${product.qty}"></td>
+            <td th:text="${product.design}"></td>
+            <td th:text="${product.desc}"></td>
+            <td th:text="${product.category}"></td>
+            <td th:text="${product.prix}"></td>
+            <td th:text="${product.marque}"></td>
+
+
+            <td>
+                <a onclick="return confirm ('Are you sure to delete')"
+                   class="btn btn-danger"
+                   th:href="@{suppression(id=${product.id}, keyword=${keyword}, page=${curentpage}, size=${size})}">Delete</a>
+            </td>
+
+            </td>
+            <td>
+                <a onclick="return confirm ('Etes vous Sûr?')"
+
+                   class="btn btn-lg btn-outline-info btn-block"
+                   th:href="@{produitAdd}">Enregistrer un produit</a>
+            </td>
+
+            <td>
+                <a th:href="@{Edition(id=${product.id})}"
+                   class="btn btn-warning btn-sm px-3"><i class="fas fa-pencil-alt text-dark me-2"
+                                                          aria-hidden="true"></i>Editer</a>
+
+            </td>
+        </tr>
+    </table>
+    <ul class="nav nav-pills">
+        <li th:each="page, status:${pages}"><a
+                th:class="${status.index==currentPage? 'btn btn-primary':'btn'
+						}"
+                th:href="@{adminisproducts(page=${status.index},keyword=${keyword},size=${size})}"
+                th:text="${status.index}"></a></li>
+    </ul>
+</div>
+</div>
 </div>
 
 </div>
-
-<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>

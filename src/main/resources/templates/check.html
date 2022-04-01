@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1 .0">
+
+<link rel="stylesheet" type="text/css" href="/css/ft.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.7.2/css/all.css"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head th:replace="fragments/header :: header-css">
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="wrapper bg-white">
+    <div class="h2 text-center">Smartchips</div>
+    <div class="h2 text-center">Computers</div>
+    <div class="h5 font-weight-bold">Registration</div>
+    <div class="text-muted">Enter your payment details</div>
+    <form class="form-signin" autocomplete="off" th:action="@{savecheck}" method="POST">
+
+        <div class="d-sm-flex align-items-sm-center justify-content-sm-between pt-1">
+            <div class="form-group"><label class="text-muted mandatory">Name</label> <input type="text" th:value="${order.name}"
+                                                                                                name="name" required
+                                                                                                class="form-control">
+            </div>
+            <div class="form-group"><label class="text-muted mandatory">Credit Cart</label> <input type="text" th:value="${order.creditcard}"
+                                                                                                   name="creditcard"
+                                                                                                   required
+                                                                                                   class="form-control">
+            </div>
+        </div>
+        <div class="d-sm-flex align-items-sm-center justify-content-sm-between pt-1">
+            <div class="form-group">
+                <div><label class="text-muted mandatory">Proffession</label></div>
+                <div class="form-group"><label class="text-muted">Proffession</label> <input type="text" name="proffession" th:value="${order.proffession}"
+                                                                                        class="form-control"></div>
+
+            </div>
+            <div class="form-group"><label class="text-muted">mDate </label> <input type="text" name="montant" th:value="${order.montant}"
+                                                                                   class="form-control"></div>
+        </div>
+        <div class="d-sm-flex align-items-sm-center justify-content-sm-between pt-1">
+            <div class="form-group"><label class="text-muted mandatory">My Country</label> <input type="text" th:value="${order.country}"
+                                                                                                  name="country"
+                                                                                                  required
+                                                                                                  class="form-control">
+            </div>
+
+            <div class="form-group"><label class="text-muted mandatory">Phone number</label> <input type="password" th:value="${order.phonenumber}"
+                                                                                                    name="phonenumber"
+                                                                                                    required
+                                                                                                    class="form-control">
+            </div>
+
+            <div class="d-flex align-items-center justify-content-sm-end button-section">
+                <button class="btn btn-primary mx-4" type="submit">Submit</button>
+                <button class="btn">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+</div>
+
+</body>
+
+</html>

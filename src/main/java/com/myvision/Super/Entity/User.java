@@ -15,15 +15,15 @@ public class User {
 
     @Column(name = "id")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     @NotEmpty
     @NotNull
     private String username;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     @Email
     @NotEmpty
     @NotNull
@@ -33,15 +33,9 @@ public class User {
     @NotNull
     private String password;
 
-    @NotEmpty
-    @NotNull
-    private String passwordConfirm;
 
     @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    private String name;
 
     @Column(name = "age")
     private int age;
@@ -53,8 +47,9 @@ public class User {
     @NotEmpty
     @NotNull
     private String gender;
+    @NotEmpty
+    @NotNull
+    private String passwordConfirm;
 
-    @Column(name = "balance")
-    private BigDecimal balance;
 
 }

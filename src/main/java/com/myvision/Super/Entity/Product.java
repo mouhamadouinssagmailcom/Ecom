@@ -1,5 +1,7 @@
 package com.myvision.Super.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -11,57 +13,57 @@ import java.util.Objects;
 @Entity
 @Table(name = "Produit")
 
-public class Product implements  Serializable {
+public class Product implements Serializable {
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    private Long id;
 
-        /**
-         *
-         */
-        private static final long serialVersionUID = 1L;
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id", nullable = false, unique = true)
-        private Long id;
+    @Min(value = 1, message = "La  quantité ne doit pas être inférieur à 1")
+    //@NotBlank(message = "Veuillez remplir ce champ")
+    private int qty;
 
-        @Min(value = 1, message = "La  quantité ne doit pas être inférieur à 1")
-        //@NotBlank(message = "Veuillez remplir ce champ")
-        private int qty;
+    @Column(name = "Designation", nullable = false)
+    @NotBlank(message = "Veuillez remplir ce champ")
+    private String design;
 
-        @Column(name = "Designation", nullable = false)
-        @NotBlank(message = "Veuillez remplir ce champ")
-        private String design;
+    @Column(name = "Marque", nullable = false)
+    @NotBlank(message = "Veuillez remplir ce champ")
+    private String marque;
 
-        @Column(name = "Marque", nullable = false)
-        @NotBlank(message = "Veuillez remplir ce champ")
-        private String marque;
+    @Column(name = "Description", nullable = false)
+    @Size(min = 10, max = 65, message = "La description doit comporter minimun 10 et maximun 65 caractères ")
+    private String desc;
 
-        @Column(name = "Description", nullable = false)
-        @Size(min = 10, max = 65, message = "La description doit comporter minimun 10 et maximun 65 caractères ")
-        private String desc;
-
-        @Column(name = "Détails", nullable = false)
-        @Size(min = 10, max = 255, message = "Les details doit comporter minimun 10 et maximun 255 caractères")
-        private String detail;
+    @Column(name = "Détails", nullable = false)
+    @Size(min = 10, max = 255, message = "Les details doit comporter minimun 10 et maximun 255 caractères")
+    private String detail;
 
 
-        @Min(value = 100, message = "Le prix ne doit pas être inférieur à 100")
-        @Column(name = "Prix", nullable = false)
-        private BigDecimal prix;
+    @Min(value = 100, message = "Le prix ne doit pas être inférieur à 100")
+    @Column(name = "Prix", nullable = false)
+    private BigDecimal prix;
 
-        @Column(name = "Etat", nullable = true)
-        private boolean available = true;
+    @Column(name = "Etat", nullable = true)
+    private boolean available = true;
 
-        @Column(name = "Catégorie", nullable = false)
-        @NotBlank(message = "Veuillez choisir une catégorie")
-        private String category;
+    @Column(name = "Catégorie", nullable = false)
+    @NotBlank(message = "Veuillez choisir une catégorie")
+    private String category;
 
-        @Lob
-        @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
-        private byte[] image;
+    @Lob
+    @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
+    private byte[] image;
 
-        @Column(name = "Image_name")
-        private String name;
+    @Column(name = "Image_name")
+    private String name;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,45 +73,45 @@ public class Product implements  Serializable {
         return id == product.getId();
     }
 
-        public Long getId() {
-            return id;
-        }
+    public Long getId() {
+        return id;
+    }
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public int getQty() {
-            return qty;
-        }
+    public int getQty() {
+        return qty;
+    }
 
-        public void setQty(int qty) {
-            this.qty = qty;
-        }
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
 
-        public String getDesign() {
-            return design;
-        }
+    public String getDesign() {
+        return design;
+    }
 
-        public void setDesign(String design) {
-            this.design = design;
-        }
+    public void setDesign(String design) {
+        this.design = design;
+    }
 
-        public String getDesc() {
-            return desc;
-        }
+    public String getDesc() {
+        return desc;
+    }
 
-        public void setDesc(String desc) {
-            this.desc = desc;
-        }
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
-        public String getDetail() {
-            return detail;
-        }
+    public String getDetail() {
+        return detail;
+    }
 
-        public void setDetail(String detail) {
-            this.detail = detail;
-        }
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public BigDecimal getPrix() {
         return prix;
@@ -128,22 +130,21 @@ public class Product implements  Serializable {
     }
 
 
+    public String getCategory() {
+        return category;
+    }
 
-        public String getCategory() {
-            return category;
-        }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-        public void setCategory(String category) {
-            this.category = category;
-        }
+    public byte[] getImage() {
+        return image;
+    }
 
-        public byte[] getImage() {
-            return image;
-        }
-
-        public void setImage(byte[] image) {
-            this.image = image;
-        }
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public String getName() {
         return name;
@@ -154,12 +155,13 @@ public class Product implements  Serializable {
     }
 
     public String getMarque() {
-            return marque;
-        }
+        return marque;
+    }
 
-        public void setMarque(String marque) {
-            this.marque = marque;
-        }
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);

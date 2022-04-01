@@ -1,7 +1,9 @@
 package com.myvision.Super.Web;
 
 import com.myvision.Super.Entity.Product;
+import com.myvision.Super.Entity.User;
 import com.myvision.Super.Repository.ProductRepository;
+import com.myvision.Super.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,18 +17,37 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.*;
 import java.net.URLConnection;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    UserRepository userRepository;
 
+
+    @GetMapping("/")
+    public String Accueil(Model model,
+                          @RequestParam(name = "page", defaultValue = "0") int page,
+                          @RequestParam(name = "size", defaultValue = "12") int size,
+                          @RequestParam(name = "keyword", defaultValue = "") String mc
+    ) {
+        Page<Product> productPage = productRepository.findBycategoryContains(mc, PageRequest.of(page, size));
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("pages", new int[productPage.getTotalPages()]);
+        model.addAttribute("size", size);
+        model.addAttribute("keyword", mc);
+        model.addAttribute("curentpage", page);
+
+        return "index";
+    }
 
     @GetMapping("/products")
     public String getAllProducts(Model model,
                                  @RequestParam(name = "page", defaultValue = "0") int page,
-                                 @RequestParam(name = "size", defaultValue = "8") int size,
+                                 @RequestParam(name = "size", defaultValue = "12") int size,
                                  @RequestParam(name = "keyword", defaultValue = "") String mc
     ) {
         Page<Product> productPage = productRepository.findBycategoryContains(mc, PageRequest.of(page, size));
@@ -38,6 +59,21 @@ public class ProductController {
 
         return "product";
     }
+    @GetMapping("/myproducts")
+    public String FinAllProducts(Model model,
+                                 @RequestParam(name = "page", defaultValue = "0") int page,
+                                 @RequestParam(name = "size", defaultValue = "12") int size,
+                                 @RequestParam(name = "keyword", defaultValue = "") String mc
+    ) {
+        Page<Product> productPage = productRepository.findBycategoryContains(mc, PageRequest.of(page, size));
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("pages", new int[productPage.getTotalPages()]);
+        model.addAttribute("size", size);
+        model.addAttribute("keyword", mc);
+        model.addAttribute("curentpage", page);
+
+        return "nouveauproduct";
+    }
 
 
     @GetMapping("/adminisproducts")
@@ -47,13 +83,15 @@ public class ProductController {
                                          @RequestParam(name = "keyword", defaultValue = "") String mc
     ) {
         Page<Product> productPage = productRepository.findByDesignContains(mc, PageRequest.of(page, size));
+        List<User> user = userRepository.findAll();
+        model.addAttribute("listUser", user);
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("pages", new int[productPage.getTotalPages()]);
         model.addAttribute("size", size);
         model.addAttribute("keyword", mc);
         model.addAttribute("curentpage", page);
 
-        return "adminisproduct";
+        return "pit";
     }
 
     @GetMapping("/produitAdd")
@@ -91,14 +129,6 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @GetMapping(value = "produitUpdat/{id}")
-    public String produitUpdate(@PathVariable("id") long id, String name, Model model) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Produit Id:" + id));
-        model.addAttribute("produit", product);
-        return "produitUpdate";
-    }
-
     @GetMapping("/suppression")
     public String delete(Model model, Long id, String keyword, int page, int size) {
         productRepository.deleteById(id);
@@ -108,8 +138,16 @@ public class ProductController {
     @GetMapping("/Edition")
     public String edit(Model model, Long id) {
         Product product = productRepository.findById(id).get();
+
         model.addAttribute("product", product);
         return "Edition";
+    }
+
+    @GetMapping("/details")
+    public String showDetails(Model model, Long id) {
+        Product product = productRepository.findById(id).get();
+        model.addAttribute("product", product);
+        return "mydetails";
     }
 
     @GetMapping("/delete")
@@ -120,28 +158,6 @@ public class ProductController {
         return "redirect:/adminisproducts?page =" + page + "&size=" + size + "&keyword=" + keyword;
     }
 
-    @GetMapping("/image/produitdetails")
-    public String productDetail(@RequestParam("id") Long id, Optional<Product> product, Model model) {
-        try {
-
-            if (id != 0) {
-                product = productRepository.findById(id);
-                if (product.isPresent()) {
-                    model.addAttribute("design", product.get().getDesign());
-                    model.addAttribute("desc", product.get().getDesc());
-                    model.addAttribute("name", product.get().getName());
-                    model.addAttribute("prix", product.get().getPrix());
-                    return "produitdetails";
-                }
-                return "redirect:/products";
-            }
-            return "redirect:/products";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/products";
-        }
-
-    }
 
     @GetMapping("/images/{nameImage}")
     public void getImage(@PathVariable("nameImage") String nameImage, HttpServletResponse response) throws Exception {

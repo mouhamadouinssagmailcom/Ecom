@@ -1,27 +1,85 @@
 <!doctype HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/footer.css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<link href=" https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+      th:href="@{/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.min.css}"/>
+<link th:rel="stylesheet"
+      th:href="@{webjars/bootstrap/4.1.3/css/bootstrap.min.css} "/>
 
 <head>
 </head>
 
 <body>
 <div th:fragment="footer">
-    <div class="container">
-        <footer>
-            <span th:text="#{footer.copyright}"></span>
-            <span>
-                    <a th:href="@{/about}" th:text="#{about.name}"></a>
-                </span>
-            <label>
-                <select class="custom-select" id="select-lang">
-                    <option value="eng" th:selected="${#locale.getLanguage().toString() == 'en'}"
-                            th:text="#{footer.language.en}"></option>
-                    <option value="pl" th:selected="${#locale.getLanguage().toString() == 'pl'}"
-                            th:text="#{footer.language.pl}"></option>
-                    <option disabled value="den" th:selected="${#locale.getLanguage().toString() == 'den'}"
-                            th:text="#{footer.language.den}"></option>
-                </select>
-            </label>
+            <div class='container-fluid'>
+                <footer>
+
+                <div class="card">
+                    <div class="heading text-center">
+                        <div class="head1">Just Scratching the Surface</div>
+                        <p class="bdr"></p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row m-0 pt-5">
+                            <div class="card col-12 col-md-3">
+                                <div class="card-content"><i class="fas fa-hand-holding-usd fa-3x"></i>
+                                    <div class="card-title"> RECHARGE REPEAT CUSTOMER</div>
+                                    <p><small>Save customers' cards for future phone orders</small></p>
+                                    <div class="learn-more">
+                                        <p><small> LEARN MORE <label><i class="fas fa-angle-right"></i></label> </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col-12 col-md-3">
+                                <div class="card-content"><i class="far fa-handshake fa-3x"></i>
+                                    <div class="card-title"> ACCEPT ELECTRONIC CHECK</div>
+                                    <p><small>Save customers' cards for future phone orders</small></p>
+                                    <div class="learn-more">
+                                        <p><small> LEARN MORE <label><i class="fas fa-angle-right"></i></label> </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col-12 col-md-3">
+                                <div class="card-content"><i class="fas fa-mobile-alt fa-3x"></i>
+                                    <div class="card-title"> STREAMLINE PHONE PAYMENTS</div>
+                                    <p><small>Save customers' cards for future phone orders</small></p>
+                                    <div class="learn-more">
+                                        <p><small> LEARN MORE <label><i class="fas fa-angle-right"></i></label> </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col-12 col-md-3">
+                                <div class="card-content"><i class="fas fa-user-secret fa-3x"></i>
+                                    <div class="card-title"> STAY<br/> SECURE</div>
+                                    <p><small>Save customers' cards for future phone orders</small></p>
+                                    <div class="learn-more">
+                                        <p><small> LEARN MORE <label><i class="fas fa-angle-right"></i></label> </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer row m-0">
+                        <p><label> <i class="fas fa-phone fa-rotate-90 text-primary"></i> </label> 800-601-0230</p>
+                        <div>
+                            <p><small class="follow-text">FOLLOW US ON SOCIAL MEDIA</small> <label class="footer-right">
+                                <i class="fab fa-instagram"></i> <i class="fab fa-facebook-square"></i> <i
+                                    class="fab fa-linkedin"></i> <i class="fab fa-twitter-square"></i> </label></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
     <script type="text/javascript" th:src="@{webjars/jquery/3.3.1-1/jquery.min.js}"></script>

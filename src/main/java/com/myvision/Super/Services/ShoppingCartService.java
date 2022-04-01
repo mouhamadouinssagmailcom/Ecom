@@ -1,5 +1,6 @@
 package com.myvision.Super.Services;
 
+import com.myvision.Super.Entity.Order;
 import com.myvision.Super.Entity.Product;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,5 @@ public interface ShoppingCartService {
     Map<Product, Integer> productsInCart();
     BigDecimal totalPrice();
     void cartCheckout();
+    void DeleteOneProductToCart(Product product);
 }

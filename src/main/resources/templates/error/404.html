@@ -6,18 +6,17 @@
 
 <body>
 
-    <div th:replace="fragments/header :: header"></div>
-
+<div th:replace="fragments/header :: header"></div>
+<center>
     <div class="container">
         <div class="starter-template">
-            <h1 th:text="#{error.title} + ' 404'"></h1>
-            <h3 th:text="#{error.no_page}"></h3>
-            <a href="/home" th:text="#{home.back}"></a>
+            <h1>Error 404 Not Found</h1>
+            <h3>Error_Page</h3>
+            <a href="/">Home</a>
         </div>
     </div>
 
-
-    <div th:replace="fragments/footer :: footer"></div>
+</center>
 </body>
 
 </html>
